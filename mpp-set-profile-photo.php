@@ -55,7 +55,7 @@ class MPP_Set_Profile_Photo_Helper {
 		$this->path = plugin_dir_path( __FILE__ );
 
 		//load files when MediaPress is loaded
-		add_action( 'bp_loaded', array( $this, 'load' ) );
+		add_action( 'mpp_loaded', array( $this, 'load' ) );
 		add_action( 'bp_init', array( $this, 'load_textdomain' ) );
 	}
 	
