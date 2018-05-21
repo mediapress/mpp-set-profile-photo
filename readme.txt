@@ -3,7 +3,7 @@ Contributors: buddydev, raviousprime
 Tags: mediapress, buddypress, avatar
 Requires at least: 4.0
 Tested up to: 4.6
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ We request you to use [BuddyDev Forums](https://buddydev.com/support/forums/) fo
 3. After selecting photo cropping area to set profile pic
 
 == Changelog ==
+
+= 1.0.1 =
+* Cropping avatar fix.
 
 = 1.0.0 =
  * Initial Release on wp.org repo.
