@@ -3,6 +3,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 /**
  * Is it change profile photo screen and was our media used?
  *
@@ -23,5 +24,4 @@ function mpp_spp_is_change_photo() {
 	}
 	
 	return true;
-	
 }

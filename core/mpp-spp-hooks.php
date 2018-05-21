@@ -7,7 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Setup environment/variables etc if it is our profile photo change page
  */
-
 function mpp_spp_setup_profile_photo_change_screen() {
 
 	// Bail if not the correct screen.
@@ -19,24 +18,24 @@ function mpp_spp_setup_profile_photo_change_screen() {
 
 	add_action( 'wp_head', 'mpp_spp_add_custom_css');
 
-	add_filter( 'bp_core_avatar_folder_dir', 'mpp_spp_create_user_avatar_dir_if_not_exists' );
-
 	if ( ! isset( $bp->avatar_admin ) ) {
 		$bp->avatar_admin = new stdClass();
 	}
 
-	mpp_spp_set_profile_photo();
+	if ( ! mpp_spp_set_profile_photo() ) {
+        return;
+    }
 
 	$bp->avatar_admin->step = 'crop-image';
 
 	add_action( 'wp_print_scripts', 'bp_core_add_jquery_cropper' );
-
 }
 
 add_action( 'bp_screens', 'mpp_spp_setup_profile_photo_change_screen', 200 );
 
 /**
  * Set profile photo
+ *
  * @return bool
  */
 function mpp_spp_set_profile_photo() {
@@ -65,6 +64,7 @@ function mpp_spp_set_profile_photo() {
 
 	if ( ! $done ) {
 		bp_core_add_message( __( 'Upload Failed!', 'mpp-set-profile-photo' ), 'error' );
+		return false;
 	}
 
 	// fake it
@@ -136,20 +136,4 @@ function mpp_spp_add_custom_css() {
     </style>
 
 	<?php
-}
-
-/**
- * Create avatar directory if not exists
- *
- * @param $path
- *
- * @return mixed
- */
-function mpp_spp_create_user_avatar_dir_if_not_exists( $path ) {
-
-	if ( ! file_exists( $path ) ) {
-		wp_mkdir_p( $path );
-	}
-
-	return $path;
 }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MediaPress Set Profile Photo
  * Plugin URI: https://buddydev.com/plugins/mpp-set-profile-photo/
- * Version: 1.0.0
+ * Version: 1.0.2
  * Author: BuddyDev Team
  * Author URI: https://buddydev.com
  * Description: Allows users to use MediaPress photo as their BuddyPress profile photo
@@ -15,7 +15,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/**
+ * Class MPP_Set_Profile_Photo_Helper
+ */
 class MPP_Set_Profile_Photo_Helper {
+
 	/**
 	 * Singleton Instance
 	 * 
@@ -24,10 +29,15 @@ class MPP_Set_Profile_Photo_Helper {
 	private static $instance = null;
 
 	/**
-	 * @var string the absolute path of this plugin directory
+	 * Absolute directory path
+	 *
+	 * @var string $path Absolute path directory path
 	 */
 	private $path;
 
+	/**
+	 * The constructor.
+	 */
 	private function __construct () {
 		$this->setup();
 	}
@@ -46,6 +56,7 @@ class MPP_Set_Profile_Photo_Helper {
 		return self::$instance;
 		
 	}
+
 	/**
 	 * Setup hooks 
 	 */
@@ -63,8 +74,11 @@ class MPP_Set_Profile_Photo_Helper {
 	 * Load required files
 	 */
 	public function load() {
-		
-		//$files array is an array of file paths(relative to this plugin's directory) to the files we want to include
+
+		if ( ! function_exists( 'buddypress' ) ) {
+			return;
+		}
+
 		$files = array(
 			'core/mpp-spp-functions.php',
 			'core/mpp-spp-template-helper.php',
@@ -74,17 +88,17 @@ class MPP_Set_Profile_Photo_Helper {
 		foreach ( $files as $file ) {
 			require_once $this->path . $file ;
 		}
-		
 	}
 
 	/**
 	 * Load plugin translations
 	 */
 	public function load_textdomain() {
-		//Note: Developers, if possible, please use the plugin directory name as textdomain
 		load_plugin_textdomain( 'mpp-set-profile-photo', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 
 }
-//initialize
+
 MPP_Set_Profile_Photo_Helper::get_instance();
+
+
